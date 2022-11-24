@@ -1,23 +1,40 @@
 package services;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import connexion.Connexion;
 import dao.IDao;
 import entities.Demande;
 
 public class DemandeService implements IDao<Demande>{
-	List<Demande> demandes;
+	FournisseurService fs;
 	
 	
 	public DemandeService() {
 		
-		this.demandes = new ArrayList<Demande>();
+		fs= new FournisseurService();
 	}
 
 	@Override
 	public boolean create(Demande o) {
 		// TODO Auto-generated method stub
-		return demandes.add(o);
+		try {
+			String req=" insert into demande values(?,?,?)";
+			PreparedStatement ps = Connexion.getConnection().prepareStatement(req);
+			ps.setInt(1, o.getId());
+			ps.setDate(2, new java.sql.Date(o.getDate().getTime()));
+			ps.setInt(3, o.getFournisseur().getId());
+			if(ps.executeUpdate()==1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
