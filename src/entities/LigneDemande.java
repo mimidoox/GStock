@@ -1,6 +1,7 @@
 package entities;
 
 public class LigneDemande {
+	private int id;
 	private Demande demande;
 	private Produit produit;
 	private int quantite;
@@ -11,6 +12,20 @@ public class LigneDemande {
 		this.produit = produit;
 		this.quantite = quantite;
 		this.prixVente = prixVente;
+	}
+	public LigneDemande(int id,Demande demande, Produit produit, int quantite, double prixVente) {
+		this.id=id;
+		this.demande = demande;
+		this.produit = produit;
+		this.quantite = quantite;
+		this.prixVente = prixVente;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Demande getDemande() {
 		return demande;
